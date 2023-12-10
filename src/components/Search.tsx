@@ -2,8 +2,23 @@ import { ChangeEvent, useRef, useState } from "react"
 import { dataType, optionType } from "../types/index"
 import { FaSearchLocation } from "react-icons/fa";
 
+// <reference types="vite/client" />
+
+// interface ImportMetaEnv {
+//     readonly VITE_APP_TITLE: string
+//     // more env variables...
+// }
+
+// interface ImportMeta {
+//     readonly env: ImportMetaEnv
+// }
 
 const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<dataType | null>> }) => {
+
+    const apiKey: string = import.meta.env.VITE_API_KEY;
+    console.log(apiKey);
+
+
     const BASE_URL = "http://api.openweathermap.org"
     const RefSearch = useRef<HTMLButtonElement | null>(null);
 
@@ -16,7 +31,7 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
         const newTerm = term.replace(/^\s+/, '');
         if (newTerm !== "") {
             try {
-                const response = await fetch(`${BASE_URL}/geo/1.0/direct?q=${newTerm.trim()}&limit=5&lang=en&appid=${import.meta.env.VITE_API_KEY}`);
+                const response = await fetch(`${BASE_URL}/geo/1.0/direct?q=${newTerm.trim()}&limit=5&lang=en&appid=${apiKey}`);
                 const data = await response.json();
                 setOptions(data);
             } catch (error) {
@@ -28,7 +43,7 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
     // fetch Data
     const fetchCountryData = async (city: optionType) => {
         try {
-            const response = await fetch(`${BASE_URL}/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&lang=en&appid=${import.meta.env.VITE_API_KEY}`);
+            const response = await fetch(`${BASE_URL}/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&lang=en&appid=${apiKey}`);
             const data = await response.json();
             setData({ city: data.city, list: data.list })
         } catch (error) {
@@ -89,7 +104,8 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
                     }, 500);
                 },
                 (error) => {
-                    alert('Error getting location:', error.message);
+                    // alert('Error getting location:', error.message);
+                    alert('Error getting your location');
                 },
                 {
                     enableHighAccuracy: true,
