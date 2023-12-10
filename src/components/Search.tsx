@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react"
+import { ChangeEvent, useRef, useState } from "react"
 import { dataType, optionType } from "../types/index"
 import { FaSearchLocation } from "react-icons/fa";
 
@@ -15,19 +15,25 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
     const fetchOptions = async (term: string) => {
         const newTerm = term.replace(/^\s+/, '');
         if (newTerm !== "") {
-            fetch(`${BASE_URL}/geo/1.0/direct?q=${newTerm.trim()}&limit=5&lang=en&appid=${import.meta.env.VITE_API_KEY}`)
-                .then((res) => res.json())
-                .then((data) => setOptions(data))
-                .catch((error) => alert(error))
+            try {
+                const response = await fetch(`${BASE_URL}/geo/1.0/direct?q=${newTerm.trim()}&limit=5&lang=en&appid=${import.meta.env.VITE_API_KEY}`);
+                const data = await response.json();
+                setOptions(data);
+            } catch (error) {
+                alert(error);
+            }
         }
     }
 
     // fetch Data
     const fetchCountryData = async (city: optionType) => {
-        fetch(`${BASE_URL}/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&lang=en&appid=${import.meta.env.VITE_API_KEY}`)
-            .then((res) => res.json())
-            .then((data) => setData({ city: data.city, list: data.list }))
-            .catch((error) => alert(error))
+        try {
+            const response = await fetch(`${BASE_URL}/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&lang=en&appid=${import.meta.env.VITE_API_KEY}`);
+            const data = await response.json();
+            setData({ city: data.city, list: data.list })
+        } catch (error) {
+            alert(error);
+        }
     }
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +49,9 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
     const onOptionSelect = (option: optionType) => {
         setCity(option)
         setOptions([])
+        if (city && typeof city.name === 'string') {
+            setTerm(city.name)
+        }
         // setTerm(city.name) 
         setTimeout(() => {
             if (RefSearch.current) {
@@ -51,11 +60,11 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
         }, 500);
     }
 
-    useEffect(() => {
-        if (city) {
-            setTerm(city.name)
-        }
-    }, [city])
+    // useEffect(() => {
+    //     if (city && typeof city.name === 'string') {
+    //         setTerm(city.name)
+    //     }
+    // }, [city])
 
     const onSubmit = () => {
         if (city) {
@@ -80,7 +89,7 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
                     }, 500);
                 },
                 (error) => {
-                    alert('Error getting location:', error);
+                    alert('Error getting location:', error.message);
                 },
                 {
                     enableHighAccuracy: true,

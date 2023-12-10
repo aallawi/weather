@@ -76,9 +76,6 @@ const Forecast = ({ data, setData }: { data: dataType, setData: React.Dispatch<R
     };
 
 
-
-    // ======================================================
-
     const remainingTime = (targetTime: number): string => {
         const currentTime = Date.now() / 1000;
         const difference = Math.abs(targetTime - currentTime);
@@ -90,7 +87,6 @@ const Forecast = ({ data, setData }: { data: dataType, setData: React.Dispatch<R
         return `${h} ${m}`
     }
 
-    // ======================================================
 
     const getWindDirection = (deg: number): JSX.Element => {
         if (deg > 15 && deg <= 75) return <BsArrowDownLeft />
