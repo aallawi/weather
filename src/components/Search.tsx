@@ -99,8 +99,8 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
                     }, 500);
                 },
                 (error) => {
-                    // alert('Error getting location:', error.message);
-                    alert('Error getting location:', error);
+                    // alert('Error getting location:', error);
+                    console.log(error);
                 },
                 {
                     enableHighAccuracy: true,
