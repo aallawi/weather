@@ -13,6 +13,16 @@ import { FaSearchLocation } from "react-icons/fa";
 //     readonly env: ImportMetaEnv
 // }
 
+interface ImportMetaEnv {
+    VITE_API_URL_EXAMPLE: string;
+    VITE_SECRET_KEY_EXAMPLE: string;
+    // Add other environment variables here...
+}
+
+interface ImportMeta {
+    env: ImportMetaEnv;
+}
+
 const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<dataType | null>> }) => {
 
     const apiKey: string = import.meta.env.VITE_API_KEY;
