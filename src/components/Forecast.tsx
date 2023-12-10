@@ -8,7 +8,7 @@ import { PiWindFill } from "react-icons/pi";
 import { BsArrowDownLeft, BsArrowLeft, BsArrowUpLeft, BsArrowUp, BsArrowUpRight, BsArrowRight, BsArrowDownRight, BsArrowDown } from "react-icons/bs";
 
 
-const Forecast = ({ data, setData }: { data: dataType, setData: dataType }) => {
+const Forecast = ({ data, setData }: { data: dataType, setData: React.Dispatch<React.SetStateAction<dataType | null>> }) => {
     const [dateTime, setDateTime] = useState<{ formattedDay: string; formattedTime: string; }>({ formattedDay: '', formattedTime: '' });
     const [dayLength, setDayLength] = useState<string>("");
     const [sunrise, setSunrise] = useState<string>("");
@@ -47,11 +47,8 @@ const Forecast = ({ data, setData }: { data: dataType, setData: dataType }) => {
 
     const getSunTime = (timestamp: number): string => {
         const date = new Date(timestamp * 1000)
-        let hours = date.getHours().toString()
-        let minutes = date.getMinutes().toString()
-
-        // if (hours.length <= 1) hours = `0${hours}`
-        // if (minutes.length <= 1) minutes = `0${minutes}`
+        const hours = date.getHours().toString();
+        const minutes = date.getMinutes().toString();
 
         return `${hours}:${minutes}`
     }

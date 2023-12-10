@@ -3,7 +3,7 @@ import { dataType, optionType } from "../types/index"
 import { FaSearchLocation } from "react-icons/fa";
 
 
-const Search = ({ setData }: { setData: dataType }) => {
+const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<dataType | null>> }) => {
     const BASE_URL = "http://api.openweathermap.org"
     const RefSearch = useRef<HTMLButtonElement | null>(null);
 
