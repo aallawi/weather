@@ -26,7 +26,7 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
         if (newTerm !== "") {
             try {
                 // const response = await fetch(`${BASE_URL}/geo/1.0/direct?q=${newTerm.trim()}&limit=5&lang=en&appid=${import.meta.env.VITE_API_KEY}`);
-                const response = await fetch(`${BASE_URL}/geo/1.0/direct?q=${newTerm.trim()}&limit=5&lang=en&appid="13551b69b7558210ad237a5d25848eaf"`);
+                const response = await fetch(`${BASE_URL}/geo/1.0/direct?q=${newTerm.trim()}&limit=5&lang=en&appid=13551b69b7558210ad237a5d25848eaf`);
                 const data = await response.json();
                 setOptions(data);
             } catch (error) {
@@ -38,7 +38,7 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
     // fetch Data
     const fetchCountryData = async (city: optionType) => {
         try {
-            const response = await fetch(`${BASE_URL}/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&lang=en&appid="13551b69b7558210ad237a5d25848eaf"`);
+            const response = await fetch(`${BASE_URL}/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&lang=en&appid=13551b69b7558210ad237a5d25848eaf`);
             const data = await response.json();
             setData({ city: data.city, list: data.list })
         } catch (error) {
