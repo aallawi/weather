@@ -3,7 +3,6 @@ import { dataType, optionType } from "../types/index"
 import { FaSearchLocation } from "react-icons/fa";
 
 
-
 // interface ImportMetaEnv {
 //     VITE_API_KEY: string;
 // }
@@ -101,7 +100,7 @@ const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<data
                 },
                 (error) => {
                     // alert('Error getting location:', error.message);
-                    alert('Error getting your location');
+                    alert('Error getting location:', error);
                 },
                 {
                     enableHighAccuracy: true,
