@@ -230,7 +230,7 @@ const Forecast = ({ data, setData }: { data: dataType, setData: React.Dispatch<R
                             </div>
                         </>
                     ))}
-                </div>
+                </div >
             </div >
 
 

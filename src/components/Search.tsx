@@ -13,7 +13,7 @@ import { FaSearchLocation } from "react-icons/fa";
 
 
 const Search = ({ setData }: { setData: React.Dispatch<React.SetStateAction<dataType | null>> }) => {
-    const BASE_URL = "http://api.openweathermap.org"
+    const BASE_URL = "https://api.openweathermap.org"
     const RefSearch = useRef<HTMLButtonElement | null>(null);
 
     const [term, setTerm] = useState<string>("")
